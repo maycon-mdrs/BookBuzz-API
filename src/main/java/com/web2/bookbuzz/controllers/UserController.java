@@ -18,8 +18,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<UserModel> getAllUsers() {
-        return userService.getAllUsers();
+    @ResponseBody
+    public List<UserModel> getAllUsers(@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
+        return userService.getAllUsers(name, email);
     }
 
     @GetMapping("/{id}")
