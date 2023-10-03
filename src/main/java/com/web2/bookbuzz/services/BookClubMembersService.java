@@ -20,8 +20,8 @@ public class BookClubMembersService {
     public List<BookClubMembersModel> getAllBookClubMembers(){return bookClubMembersRepository.findAll();}
 
     public BookClubMembersModel getBookClubMembersById(int id){
-        Optional<BookClubMembersModel> optionalBookClub = bookClubMembersRepository.findById(id);
-        return optionalBookClub.orElse(null);
+        Optional<BookClubMembersModel> optionalBookClubMembersModel = bookClubMembersRepository.findById(id);
+        return optionalBookClubMembersModel.orElse(null);
     }
 
     public void addBookClubMembers(BookClubMembersModel bookClubMembers){
