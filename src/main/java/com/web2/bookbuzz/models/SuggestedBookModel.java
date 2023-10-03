@@ -13,9 +13,9 @@ public class SuggestedBookModel {
     @OneToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private BookModel book_id;
-   // @OneToOne
-    //@JoinColumn(name = "votation_id", referencedColumnName = "id")
-    int votation_id;
+    @OneToOne
+    @JoinColumn(name = "votation_id", referencedColumnName = "id")
+    VotationModel votation_id;
     @ManyToOne
     @JoinColumn(name = "suggested_by_user_id", referencedColumnName = "id")
     UserModel suggested_by_user_id;
@@ -26,12 +26,14 @@ public class SuggestedBookModel {
         // Construtor vazio padrão
     }
 
-    public SuggestedBookModel(int id, BookModel bookId, UserModel suggestedByUserId, List<Integer> votes) {
+    public SuggestedBookModel(int id, BookModel bookId, VotationModel votationId, UserModel suggestedByUserId, List<Integer> votes) {
         this.id = id;
         this.book_id = bookId;
+        this.votation_id = votationId;
         this.suggested_by_user_id = suggestedByUserId;
         this.votes = votes;
     }
+
 
     public int getId() {
         return id;
@@ -47,6 +49,14 @@ public class SuggestedBookModel {
 
     public void setBookId(BookModel bookId) {
         this.book_id = bookId;
+    }
+
+    public VotationModel getVotation_id() {
+        return votation_id;
+    }
+
+    public void setVotation_id(VotationModel votation_id) {
+        this.votation_id = votation_id;
     }
 
     public UserModel getSuggestedByUserId() {
@@ -70,6 +80,7 @@ public class SuggestedBookModel {
         return "UserModel{" +
                 "id=" + id +
                 ", bookId='" + book_id + '\'' +
+                ", votationId='" + votation_id + '\'' +
                 ", suggestedBy='" + suggested_by_user_id + '\'' +
                 ", votes='" + votes + '\'' +
                 '}';

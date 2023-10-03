@@ -33,14 +33,14 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-    public void addUser(UserModel bookModel) {
-        UserRepository.save(bookModel);
+    public UserModel addUser(UserModel userModel) {
+        return UserRepository.save(userModel);
     }
 
-    public void updateUser(int id, UserModel bookModel) {
+    public void updateUser(int id, UserModel userModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
         if (UserRepository.existsById(id)) {
-            UserRepository.save(bookModel);
+            UserRepository.save(userModel);
         }
     }
 
