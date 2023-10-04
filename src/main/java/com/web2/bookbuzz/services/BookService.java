@@ -18,8 +18,15 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookModel> getAllBooks() {
-        return bookRepository.findAll();
+    public List<BookModel> getAllBooks(String title, String genre) {
+        if (title != null && genre != null) {
+            return BookRepository.findByTitleAndGenre(title, genre);
+        } else if (title != null) {
+            return BookRepository.findByTitle(title);
+        } else if (genre != null) {
+            return BookRepository.findByGenre(genre);
+        }
+        return BookRepository.findAll();
     }
 
     public BookModel getBookById(int id) {
