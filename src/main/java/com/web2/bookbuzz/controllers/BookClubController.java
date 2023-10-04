@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/book_club")
+@RequestMapping("/api/bookclub")
 public class BookClubController {
     private final BookClubService bookClubService;
 
@@ -29,13 +29,13 @@ public class BookClubController {
     }
 
     @PostMapping("/")
-    public BookClubModel addBookClub(@RequestBody BookClubModel bookClubModel){
-        return bookClubService.addBookClub(bookClubModel);
+    public void addBookClub(@RequestBody BookClubModel bookClubModel){
+        bookClubService.addBookClub(bookClubModel);
     }
 
     @PutMapping("/{id}")
-    public BookClubModel updateBook(@PathVariable int id, @RequestBody BookClubModel bookClubModel) {
-        return bookClubService.updateBookClub(id, bookClubModel);
+    public void updateBook(@PathVariable int id, @RequestBody BookClubModel bookClubModel) {
+        bookClubService.updateBookClub(id, bookClubModel);
     }
 
     @DeleteMapping("/{id}")
