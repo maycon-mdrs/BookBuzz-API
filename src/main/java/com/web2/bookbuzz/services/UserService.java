@@ -37,17 +37,20 @@ public class UserService {
         return UserRepository.save(userModel);
     }
 
-    public void updateUser(int id, UserModel userModel) {
+    public UserModel updateUser(int id, UserModel userModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
         if (UserRepository.existsById(id)) {
             UserRepository.save(userModel);
         }
+        return userModel;
     }
 
-    public void deleteUser(int id) {
+    public String deleteUser(int id) {
         // Verifica se o livro com o ID especificado existe antes de excluir
         if (UserRepository.existsById(id)) {
             UserRepository.deleteById(id);
+            return "Usuário deletado com sucesso";
         }
+        return "Ocorreu um erro ao deletar o usuário";
     }
 }

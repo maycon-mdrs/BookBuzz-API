@@ -2,8 +2,14 @@ package com.web2.bookbuzz.models;
 
 
 import jakarta.persistence.*;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "book_club")
@@ -22,6 +28,7 @@ public class BookClubModel {
     }
 
     public BookClubModel(int id, String name, List<Integer> members, List<Integer> admins) {
+
         this.id = id;
         this.name = name;
         this.members = members;
@@ -58,5 +65,23 @@ public class BookClubModel {
 
     public void setAdmins(List<Integer> admins) {
         this.admins = admins;
+    }
+
+    List<Integer> convertStringToListOfIntegers(String input) {
+        List<Integer> integers = Arrays.stream(input.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        return integers;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", members='" + members + '\'' +
+                ", admins='" + admins + '\'' +
+                '}';
     }
 }

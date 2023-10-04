@@ -25,14 +25,15 @@ public class BookClubService {
         return optionalBookClub.orElse(null);
     }
 
-    public void addBookClub(BookClubModel bookClub){
-        bookClubRepository.save(bookClub);
+    public BookClubModel addBookClub(BookClubModel bookClub){
+        return bookClubRepository.save(bookClub);
     }
 
-    public void updateBookClub(int id, BookClubModel bookClub){
+    public BookClubModel updateBookClub(int id, BookClubModel bookClub){
         if(bookClubRepository.existsById(id)){
             bookClubRepository.save(bookClub);
         }
+        return bookClub;
     }
 
     public void deleteBookClub(int id){
