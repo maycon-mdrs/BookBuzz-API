@@ -29,13 +29,13 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public void addUser(@RequestBody UserModel bookModel) {
-        userService.addUser(bookModel);
+    public UserModel addUser(@RequestBody UserModel userModel) {
+       return userService.addUser(userModel);
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable int id, @RequestBody UserModel bookModel) {
-        userService.updateUser(id, bookModel);
+    public UserModel updateUser(@PathVariable int id, @RequestBody UserModel userModel) {
+        return userService.updateUser(id, userModel);
     }
 
     @DeleteMapping("/{id}")

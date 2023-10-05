@@ -33,21 +33,24 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-    public void addUser(UserModel bookModel) {
-        UserRepository.save(bookModel);
+    public UserModel addUser(UserModel userModel) {
+        return UserRepository.save(userModel);
     }
 
-    public void updateUser(int id, UserModel bookModel) {
+    public UserModel updateUser(int id, UserModel userModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
         if (UserRepository.existsById(id)) {
-            UserRepository.save(bookModel);
+            UserRepository.save(userModel);
         }
+        return userModel;
     }
 
-    public void deleteUser(int id) {
+    public String deleteUser(int id) {
         // Verifica se o livro com o ID especificado existe antes de excluir
         if (UserRepository.existsById(id)) {
             UserRepository.deleteById(id);
+            return "Usuário deletado com sucesso";
         }
+        return "Ocorreu um erro ao deletar o usuário";
     }
 }

@@ -27,15 +27,16 @@ public class BookService {
         return optionalBook.orElse(null);
     }
 
-    public void addBook(BookModel bookModel) {
-        bookRepository.save(bookModel);
+    public BookModel addBook(BookModel bookModel) {
+        return bookRepository.save(bookModel);
     }
 
-    public void updateBook(int id, BookModel bookModel) {
+    public BookModel updateBook(int id, BookModel bookModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
         if (bookRepository.existsById(id)) {
             bookRepository.save(bookModel);
         }
+        return bookModel;
     }
 
     public void deleteBook(int id) {

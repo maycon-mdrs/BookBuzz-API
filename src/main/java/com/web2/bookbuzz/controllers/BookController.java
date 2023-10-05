@@ -29,13 +29,13 @@ public class BookController {
     }
 
     @PostMapping("/")
-    public void addBook(@RequestBody BookModel bookModel) {
-        bookService.addBook(bookModel);
+    public BookModel addBook(@RequestBody BookModel bookModel) {
+        return bookService.addBook(bookModel);
     }
 
     @PutMapping("/{id}")
-    public void updateBook(@PathVariable int id, @RequestBody BookModel bookModel) {
-        bookService.updateBook(id, bookModel);
+    public BookModel updateBook(@PathVariable int id, @RequestBody BookModel bookModel) {
+        return bookService.updateBook(id, bookModel);
     }
 
     @DeleteMapping("/{id}")
