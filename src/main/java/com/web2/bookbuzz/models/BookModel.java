@@ -12,16 +12,18 @@ public class BookModel {
     String author;
     String genre;
     String description;
+    String cover_url;
 
     public BookModel() {
         // Construtor vazio padrão
     }
-    public BookModel(int id, String title, String author, String genre, String description) {
+    public BookModel(int id, String title, String author, String genre, String description, String cover_url) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.description = description;
+        this.cover_url = cover_url;
     }
 
     public int getId() {
@@ -42,6 +44,14 @@ public class BookModel {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getCover_url() {
+        return cover_url;
+    }
+
+    public void setCover_url(String cover_url) {
+        this.cover_url = cover_url;
     }
 
     public String getGenre() {
@@ -67,6 +77,7 @@ public class BookModel {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
+                ", cover_url='" + cover_url + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
