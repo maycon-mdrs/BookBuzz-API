@@ -18,11 +18,11 @@ public class BookService {
         this.BookRepository = BookRepository;
     }
 
-    public List<BookModel> getAllBooks(String title, String genre) {
-        if (title != null && genre != null) {
-            return BookRepository.findByTitleAndGenre(title, genre);
-        } else if (title != null) {
+    public List<BookModel> getAllBooks(String title, String author, String genre) {
+        if (title != null) {
             return BookRepository.findByTitle(title);
+        } else if (author != null) {
+            return BookRepository.findByAuthor(author);
         } else if (genre != null) {
             return BookRepository.findByGenre(genre);
         }
@@ -30,26 +30,26 @@ public class BookService {
     }
 
     public BookModel getBookById(int id) {
-        Optional<BookModel> optionalBook = bookRepository.findById(id);
+        Optional<BookModel> optionalBook = BookRepository.findById(id);
         return optionalBook.orElse(null);
     }
 
     public BookModel addBook(BookModel bookModel) {
-        return bookRepository.save(bookModel);
+        return BookRepository.save(bookModel);
     }
 
     public BookModel updateBook(int id, BookModel bookModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
-        if (bookRepository.existsById(id)) {
-            bookRepository.save(bookModel);
+        if (BookRepository.existsById(id)) {
+            BookRepository.save(bookModel);
         }
         return bookModel;
     }
 
     public void deleteBook(int id) {
         // Verifica se o livro com o ID especificado existe antes de excluir
-        if (bookRepository.existsById(id)) {
-            bookRepository.deleteById(id);
+        if (BookRepository.existsById(id)) {
+            BookRepository.deleteById(id);
         }
     }
 }

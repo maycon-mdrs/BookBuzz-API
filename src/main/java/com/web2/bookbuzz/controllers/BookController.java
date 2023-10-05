@@ -19,8 +19,12 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public List<BookModel> getAllBooks(@RequestParam(required = false) String title, @RequestParam(required = false) String genre) {
-        return bookService.getAllBooks(title, genre);
+    public List<BookModel> getAllBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String genre
+    ) {
+        return bookService.getAllBooks(title, author, genre);
     }
 
     @GetMapping("/{id}")
