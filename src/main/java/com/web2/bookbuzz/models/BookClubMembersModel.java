@@ -10,10 +10,10 @@ public class BookClubMembersModel {
     int id;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    UserModel user_id;
+    UserModel userId;
     @OneToOne
     @JoinColumn(name = "club_id", referencedColumnName = "id")
-    BookClubModel club_id;
+    BookClubModel clubId;
 
     Boolean is_admin;
 
@@ -21,10 +21,9 @@ public class BookClubMembersModel {
         // Construtor vazio padrão
     }
 
-    public BookClubMembersModel(int id, UserModel userId, BookClubModel clubId, Boolean isAdmin) {
-        this.id = id;
-        this.user_id = userId;
-        this.club_id = clubId;
+    public BookClubMembersModel(UserModel userId, BookClubModel clubId, Boolean isAdmin) {
+        this.userId = userId;
+        this.clubId = clubId;
         this.is_admin = isAdmin;
     }
 
@@ -36,20 +35,20 @@ public class BookClubMembersModel {
         this.id = id;
     }
 
-    public UserModel getUser_id() {
-        return user_id;
+    public UserModel getUserId() {
+        return userId;
     }
 
-    public void setUser_id(UserModel user_id) {
-        this.user_id = user_id;
+    public void setUserId(UserModel user_id) {
+        this.userId = user_id;
     }
 
-    public BookClubModel getClub_id() {
-        return club_id;
+    public BookClubModel getClubId() {
+        return clubId;
     }
 
-    public void setClub_id(BookClubModel club_id) {
-        this.club_id = club_id;
+    public void setClubId(BookClubModel club_id) {
+        this.clubId = club_id;
     }
 
     public Boolean getIs_admin() {

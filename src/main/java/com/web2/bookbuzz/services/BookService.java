@@ -38,7 +38,6 @@ public class BookService {
             spec = spec.and(BookSpecification.withGenre(req.getGenre()));
         }
 
-
         return bookRepository.findAll(spec);
     }
 

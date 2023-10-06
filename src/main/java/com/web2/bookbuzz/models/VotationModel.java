@@ -12,19 +12,20 @@ public class VotationModel {
     int id;
     @ManyToOne
     @JoinColumn(name = "club_id", referencedColumnName = "id")
-    BookClubModel club_id;
-    Date initial_date;
-    Date final_date;
+    BookClubModel clubId;
+    @Column(name = "initial_date")
+    Date initialDate;
+    @Column(name = "final_date")
+    Date finalDate;
 
     public VotationModel(){
         //Construtor vazio padrão
     }
 
-    public VotationModel(int id, BookClubModel club_id, Date initial_date, Date final_date) {
-        this.id = id;
-        this.club_id = club_id;
-        this.initial_date = initial_date;
-        this.final_date = final_date;
+    public VotationModel(BookClubModel clubId, Date initialDate, Date finalDate) {
+        this.clubId = clubId;
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
     }
 
     public int getId() {
@@ -35,27 +36,27 @@ public class VotationModel {
         this.id = id;
     }
 
-    public BookClubModel getClub_id() {
-        return club_id;
+    public BookClubModel getClubId() {
+        return clubId;
     }
 
-    public void setClub_id(BookClubModel club_id) {
-        this.club_id = club_id;
+    public void setClubId(BookClubModel club_id) {
+        this.clubId = club_id;
     }
 
-    public Date getInitial_date() {
-        return initial_date;
+    public Date getInitialDate() {
+        return initialDate;
     }
 
-    public void setInitial_date(Date initial_date) {
-        this.initial_date = initial_date;
+    public void setInitialDate(Date initial_date) {
+        this.initialDate = initial_date;
     }
 
-    public Date getFinal_date() {
-        return final_date;
+    public Date getFinalDate() {
+        return finalDate;
     }
 
-    public void setFinal_date(Date final_date) {
-        this.final_date = final_date;
+    public void setFinalDate(Date final_date) {
+        this.finalDate = final_date;
     }
 }

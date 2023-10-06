@@ -8,22 +8,26 @@ public class BookModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "title")
     String title;
+    @Column(name = "author")
     String author;
+    @Column(name = "genre")
     String genre;
+    @Column(name = "description")
     String description;
-    String cover_url;
+    @Column(name = "cover_url")
+    String coverUrl;
 
     public BookModel() {
         // Construtor vazio padrão
     }
-    public BookModel(int id, String title, String author, String genre, String description, String cover_url) {
-        this.id = id;
+    public BookModel(String title, String author, String genre, String description, String coverUrl) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.description = description;
-        this.cover_url = cover_url;
+        this.coverUrl = coverUrl;
     }
 
     public int getId() {
@@ -46,12 +50,12 @@ public class BookModel {
         this.author = author;
     }
 
-    public String getCover_url() {
-        return cover_url;
+    public String getCoverUrl() {
+        return coverUrl;
     }
 
-    public void setCover_url(String cover_url) {
-        this.cover_url = cover_url;
+    public void setCoverUrl(String cover_url) {
+        this.coverUrl = cover_url;
     }
 
     public String getGenre() {
@@ -77,7 +81,7 @@ public class BookModel {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
-                ", cover_url='" + cover_url + '\'' +
+                ", cover_url='" + coverUrl + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

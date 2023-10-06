@@ -10,23 +10,27 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "name")
     String name;
-    String url_photo;
+    @Column(name = "url_photo")
+    String urlPhoto;
+    @Column(name = "email")
     String email;
+    @Column(name = "password")
     String password;
-    Integer reading_now;
+    @Column(name = "reading_now")
+    Integer readingNow;
 
     public UserModel() {
         // Construtor vazio padrão
     }
 
-    public UserModel(int id, String name, String url_photo, String email, String password, Integer reading_now) throws NoSuchAlgorithmException {
-        this.id = id;
+    public UserModel(String name, String urlPhoto, String email, String password, Integer readingNow) throws NoSuchAlgorithmException {
         this.name = name;
-        this.url_photo = url_photo;
+        this.urlPhoto = urlPhoto;
         this.email = email;
         setPassword(password);
-        this.reading_now = reading_now;
+        this.readingNow = readingNow;
     }
 
     public int getId() {
@@ -37,24 +41,24 @@ public class UserModel {
         return name;
     }
 
-    public String getUrl_photo() {
-        return url_photo;
+    public String getUrlPhoto() {
+        return urlPhoto;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Integer getReading_now() {
-        return reading_now;
+    public Integer getReadingNow() {
+        return readingNow;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setUrl_photo(String url_photo) {
-        this.url_photo = url_photo;
+    public void setUrlPhoto(String url_photo) {
+        this.urlPhoto = url_photo;
     }
 
     public void setEmail(String email) {
@@ -118,8 +122,8 @@ public class UserModel {
         return false;
     }
 
-    public void setReading_now(Integer reading_now) {
-        this.reading_now = reading_now;
+    public void setReadingNow(Integer reading_now) {
+        this.readingNow = reading_now;
     }
 
     @Override
@@ -127,9 +131,9 @@ public class UserModel {
         return "UserModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", url_photo='" + url_photo + '\'' +
+                ", url_photo='" + urlPhoto + '\'' +
                 ", email='" + email + '\'' +
-                ", reading_now='" + reading_now + '\'' +
+                ", reading_now='" + readingNow + '\'' +
                 '}';
     }
 }
