@@ -12,6 +12,7 @@ import java.util.Optional;
 public class BookClubMembersService {
     private final BookClubMembersRepository bookClubMembersRepository;
 
+
     @Autowired
     public BookClubMembersService(BookClubMembersRepository bookClubMembersRepository) {
         this.bookClubMembersRepository = bookClubMembersRepository;
@@ -24,8 +25,8 @@ public class BookClubMembersService {
         return optionalBookClubMembersModel.orElse(null);
     }
 
-    public void addBookClubMembers(BookClubMembersModel bookClubMembers){
-        bookClubMembersRepository.save(bookClubMembers);
+    public BookClubMembersModel addBookClubMembers(BookClubMembersModel bookClubMembers){
+       return bookClubMembersRepository.save(bookClubMembers);
     }
 
     public void updateBookClubMembers(int id, BookClubMembersModel bookClubMembers){
