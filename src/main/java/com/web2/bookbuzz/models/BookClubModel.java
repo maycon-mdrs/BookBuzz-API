@@ -11,14 +11,14 @@ public class BookClubModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "name")
     String name;
 
     public BookClubModel(){
         // Construtor vazio padrão
     }
 
-    public BookClubModel(int id, String name, List<Integer> members, List<Integer> admins) {
-        this.id = id;
+    public BookClubModel(String name) {
         this.name = name;
     }
 
@@ -36,5 +36,13 @@ public class BookClubModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "BookClubModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

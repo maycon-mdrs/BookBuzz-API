@@ -1,5 +1,6 @@
 package com.web2.bookbuzz.controllers;
 
+import com.web2.bookbuzz.dto.requests.BookRequestDTO;
 import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,13 @@ public class BookController {
     }
 
     @GetMapping("/")
+    @ResponseBody
     public List<BookModel> getAllBooks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
-            @RequestParam(required = false) String genre
-    ) {
-        return bookService.getAllBooks(title, author, genre);
+            @RequestParam(required = false) String genre) {
+        BookRequestDTO requestDTO = new BookRequestDTO(title, author, genre);
+        return bookService.getAllBooks(requestDTO);
     }
 
     @GetMapping("/{id}")

@@ -1,8 +1,12 @@
 package com.web2.bookbuzz.services;
 
+import com.web2.bookbuzz.dto.requests.BookRequestDTO;
 import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.repositories.BookRepository;
+import com.web2.bookbuzz.specs.BookSpecification;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,15 +22,23 @@ public class BookService {
         this.BookRepository = BookRepository;
     }
 
-    public List<BookModel> getAllBooks(String title, String author, String genre) {
-        if (title != null) {
-            return BookRepository.findByTitle(title);
-        } else if (author != null) {
-            return BookRepository.findByAuthor(author);
-        } else if (genre != null) {
-            return BookRepository.findByGenre(genre);
+    public List<BookModel> getAllBooks(BookRequestDTO req) {
+
+        Specification<BookModel> spec = Specification.where(null);
+
+        if (req.getTitle() != null) {
+            spec = spec.and(BookSpecification.withTitle(req.getTitle()));
         }
-        return BookRepository.findAll();
+
+        if (req.getAuthor() != null) {
+            spec = spec.and(BookSpecification.withAuthor(req.getAuthor()));
+        }
+
+        if (req.getGenre() != null) {
+            spec = spec.and(BookSpecification.withGenre(req.getGenre()));
+        }
+
+        return bookRepository.findAll(spec);
     }
 
     public BookModel getBookById(int id) {
@@ -53,4 +65,3 @@ public class BookService {
         }
     }
 }
-

@@ -1,6 +1,10 @@
 package com.web2.bookbuzz.repositories;
 
 import com.web2.bookbuzz.models.BookModel;
+
+import java.util.List;
+
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,16 +14,9 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookModel, Integer> {
-    @Query("SELECT u FROM BookModel u WHERE u.title LIKE %:title%")
-    List<BookModel> findByTitle(@Param("title") String title);
+    // Você pode adicionar métodos personalizados de consulta aqui, se necessário
 
-    @Query("SELECT u FROM BookModel u WHERE u.genre LIKE %:genre%")
-    List<BookModel> findByGenre(@Param("genre") String genre);
+    List<BookModel> findAll();
 
-    @Query("SELECT u FROM BookModel u WHERE u.author LIKE %:author%")
-    List<BookModel> findByAuthor(@Param("author") String author);
-
-    // Backup
-    @Query("SELECT u FROM BookModel u WHERE u.title LIKE %:title% AND u.genre LIKE %:genre%")
-    List<BookModel> findByTitleAndGenre(@Param("title") String title, @Param("genre") String genre);
+    List<BookModel> findAll(Specification<BookModel> spec);
 }
