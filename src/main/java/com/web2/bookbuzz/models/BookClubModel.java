@@ -1,6 +1,5 @@
 package com.web2.bookbuzz.models;
 
-
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,15 +10,18 @@ public class BookClubModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "name")
     String name;
+    @Column(name = "image_url")
+    String imageUrl;
 
     public BookClubModel(){
         // Construtor vazio padrão
     }
 
-    public BookClubModel(int id, String name, List<Integer> members, List<Integer> admins) {
-        this.id = id;
+    public BookClubModel(String name, String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -30,11 +32,28 @@ public class BookClubModel {
         this.id = id;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "BookClubModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 }

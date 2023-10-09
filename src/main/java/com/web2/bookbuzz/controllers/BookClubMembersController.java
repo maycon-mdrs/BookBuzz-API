@@ -1,7 +1,11 @@
 package com.web2.bookbuzz.controllers;
 
+import com.web2.bookbuzz.dto.requests.BookClubMemberRequestDTO;
 import com.web2.bookbuzz.models.BookClubMembersModel;
+import com.web2.bookbuzz.models.BookClubModel;
+import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.services.BookClubMembersService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +22,12 @@ public class BookClubMembersController {
     }
 
     @GetMapping("/")
-    public List<BookClubMembersModel> getAllBookClubMembers(){
-        return bookClubMembersService.getAllBookClubMembers();
+    public List<BookClubMembersModel> getAllBookClubMembers(
+            @RequestParam(required = false) Integer clubId,
+            @RequestParam(required = false) Integer userId
+    ){
+        BookClubMemberRequestDTO requestDTO = new BookClubMemberRequestDTO(userId, clubId);
+        return bookClubMembersService.getAllBookClubMembers(requestDTO);
     }
 
     @GetMapping("/{id}")

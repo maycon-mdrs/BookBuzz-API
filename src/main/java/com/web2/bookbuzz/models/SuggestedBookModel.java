@@ -12,25 +12,25 @@ public class SuggestedBookModel {
     int id;
     @OneToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    private BookModel book_id;
+    private BookModel bookId;
     @OneToOne
     @JoinColumn(name = "votation_id", referencedColumnName = "id")
-    VotationModel votation_id;
+    VotationModel votationId;
     @ManyToOne
     @JoinColumn(name = "suggested_by_user_id", referencedColumnName = "id")
-    UserModel suggested_by_user_id;
+    UserModel suggestedByUserId;
     @ElementCollection
+    @Column(name = "votes")
     private List<Integer> votes;
 
     public SuggestedBookModel(){
         // Construtor vazio padrão
     }
 
-    public SuggestedBookModel(int id, BookModel bookId, VotationModel votationId, UserModel suggestedByUserId, List<Integer> votes) {
-        this.id = id;
-        this.book_id = bookId;
-        this.votation_id = votationId;
-        this.suggested_by_user_id = suggestedByUserId;
+    public SuggestedBookModel(BookModel bookId, VotationModel votationId, UserModel suggestedByUserId, List<Integer> votes) {
+        this.bookId = bookId;
+        this.votationId = votationId;
+        this.suggestedByUserId = suggestedByUserId;
         this.votes = votes;
     }
 
@@ -44,27 +44,27 @@ public class SuggestedBookModel {
     }
 
     public BookModel getBookId() {
-        return book_id;
+        return bookId;
     }
 
     public void setBookId(BookModel bookId) {
-        this.book_id = bookId;
+        this.bookId = bookId;
     }
 
-    public VotationModel getVotation_id() {
-        return votation_id;
+    public VotationModel getVotationId() {
+        return votationId;
     }
 
-    public void setVotation_id(VotationModel votation_id) {
-        this.votation_id = votation_id;
+    public void setVotationId(VotationModel votation_id) {
+        this.votationId = votation_id;
     }
 
     public UserModel getSuggestedByUserId() {
-        return suggested_by_user_id;
+        return suggestedByUserId;
     }
 
     public void setSuggestedByUserId(UserModel suggestedBy) {
-        this.suggested_by_user_id = suggestedBy;
+        this.suggestedByUserId = suggestedBy;
     }
 
     public List<Integer> getVotes() {
@@ -79,9 +79,9 @@ public class SuggestedBookModel {
     public String toString() {
         return "UserModel{" +
                 "id=" + id +
-                ", bookId='" + book_id + '\'' +
-                ", votationId='" + votation_id + '\'' +
-                ", suggestedBy='" + suggested_by_user_id + '\'' +
+                ", bookId='" + bookId + '\'' +
+                ", votationId='" + votationId + '\'' +
+                ", suggestedBy='" + suggestedByUserId + '\'' +
                 ", votes='" + votes + '\'' +
                 '}';
     }

@@ -1,12 +1,17 @@
 package com.web2.bookbuzz.services;
 
+import com.web2.bookbuzz.dto.requests.BookRequestDTO;
 import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.repositories.BookRepository;
+import com.web2.bookbuzz.specs.BookSpecification;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -18,8 +23,35 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookModel> getAllBooks() {
-        return bookRepository.findAll();
+    public List<BookModel> getAllBooks(BookRequestDTO req) {
+
+        Specification<BookModel> spec = Specification.where(null);
+
+        if (req.getTitle() != null) {
+            spec = spec.and(BookSpecification.withTitle(req.getTitle()));
+        }
+
+        if (req.getAuthor() != null) {
+            spec = spec.and(BookSpecification.withAuthor(req.getAuthor()));
+        }
+
+        if (req.getGenre() != null) {
+            spec = spec.and(BookSpecification.withGenre(req.getGenre()));
+        }
+
+        return bookRepository.findAll(spec);
+    }
+
+    public List<String> findAllGenres() {
+        List<BookModel> books = bookRepository.findAll();
+
+        // Usando stream para mapear os gêneros e coletar os valores distintos
+        List<String> genres = books.stream()
+                .map(BookModel::getGenre)
+                .distinct()
+                .collect(Collectors.toList());
+
+        return genres;
     }
 
     public BookModel getBookById(int id) {
@@ -46,4 +78,3 @@ public class BookService {
         }
     }
 }
-
