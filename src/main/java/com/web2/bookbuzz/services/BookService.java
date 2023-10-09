@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -39,6 +40,18 @@ public class BookService {
         }
 
         return bookRepository.findAll(spec);
+    }
+
+    public List<String> findAllGenres() {
+        List<BookModel> books = bookRepository.findAll();
+
+        // Usando stream para mapear os gêneros e coletar os valores distintos
+        List<String> genres = books.stream()
+                .map(BookModel::getGenre)
+                .distinct()
+                .collect(Collectors.toList());
+
+        return genres;
     }
 
     public BookModel getBookById(int id) {

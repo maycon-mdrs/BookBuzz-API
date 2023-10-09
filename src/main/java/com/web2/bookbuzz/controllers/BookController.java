@@ -29,6 +29,11 @@ public class BookController {
         return bookService.getAllBooks(requestDTO);
     }
 
+    @GetMapping("/genres")
+    public List<String> getAllGenres() {
+        return bookService.findAllGenres();
+    }
+
     @GetMapping("/{id}")
     public BookModel getBookById(@PathVariable int id) {
         return bookService.getBookById(id);
