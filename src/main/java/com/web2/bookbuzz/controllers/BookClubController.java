@@ -43,3 +43,5 @@ public class BookClubController {
         bookClubService.deleteBookClub(id);
     }
 }
+
+/*teste*/
