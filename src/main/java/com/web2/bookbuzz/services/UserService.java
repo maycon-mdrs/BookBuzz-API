@@ -30,13 +30,12 @@ public class UserService {
 
     public UserModel getUserById(int id) {
         Optional<UserModel> optionalUser = UserRepository.findById(id);
-        UserModel userModel = null;
-        if(optionalUser.isPresent()){
-            userModel = optionalUser.get();
-            return userModel;
-        } else {
-            throw new RuntimeException("Usuário não encontrado");
-        }
+        return optionalUser.orElse(null);
+    }
+
+    public List<UserModel> getUserByEmail(String email){
+        List<UserModel> optionalUser = UserRepository.findByEmail(email);
+        return optionalUser;
     }
 
     public UserModel addUser(UserModel userModel) {
@@ -44,21 +43,10 @@ public class UserService {
     }
 
     public UserModel updateUser(int id, UserModel userModel) {
-        // Verifica se o usuario com o ID especificado existe antes de atualizar
-        if (UserRepository.existsById(id)) {
-            UserRepository.save(userModel);
-        } else {
-            throw new RuntimeException("Usuário não encotrado");
-        }
-        return userModel;
+        return UserRepository.save(userModel);
     }
 
     public void deleteUser(int id) {
-        // Verifica se o livro com o ID especificado existe antes de excluir
-        if (UserRepository.existsById(id)) {
-            UserRepository.deleteById(id);
-        }else {
-            throw new RuntimeException("Usuário não encotrado");
-        }
+        UserRepository.deleteById(id);
     }
 }
