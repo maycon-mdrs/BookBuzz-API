@@ -1,10 +1,5 @@
 package com.web2.bookbuzz.dto.requests;
 
-import com.web2.bookbuzz.models.BookClubModel;
-import com.web2.bookbuzz.models.UserModel;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 public class BookClubMemberRequestDTO {
     private Integer userId;
     private Integer clubId;

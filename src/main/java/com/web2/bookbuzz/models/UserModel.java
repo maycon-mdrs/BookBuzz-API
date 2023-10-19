@@ -49,6 +49,10 @@ public class UserModel {
         return email;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
     public Integer getReadingNow() {
         return readingNow;
     }

@@ -1,7 +1,6 @@
 package com.web2.bookbuzz.controllers;
 
 import com.web2.bookbuzz.models.BookClubModel;
-import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.services.BookClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -17,7 +17,6 @@ import java.util.Optional;
 public class BookClubMembersService {
     private final BookClubMembersRepository bookClubMembersRepository;
 
-
     @Autowired
     public BookClubMembersService(BookClubMembersRepository bookClubMembersRepository) {
         this.bookClubMembersRepository = bookClubMembersRepository;
