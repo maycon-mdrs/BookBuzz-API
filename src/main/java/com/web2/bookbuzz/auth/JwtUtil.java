@@ -26,7 +26,7 @@ public class JwtUtil {
     }
 
     public String createToken(UserModel user) {
-        Claims claims = Jwts.claims().setSubject(user.getEmail());
+        Claims claims = Jwts.claims().setSubject("Auth");
         claims.put("id", user.getId());
         claims.put("name", user.getName());
         claims.put("email", user.getEmail());

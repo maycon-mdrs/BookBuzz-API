@@ -33,8 +33,13 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-    public List<UserModel> getUserByEmail(String email){
+    public List<UserModel> getUserByEmail(String email) {
         List<UserModel> optionalUser = UserRepository.findByEmail(email);
+        return optionalUser;
+    }
+
+    public UserModel getOneUserByEmail(String email) {
+        UserModel optionalUser = UserRepository.findOneByEmail(email);
         return optionalUser;
     }
 
