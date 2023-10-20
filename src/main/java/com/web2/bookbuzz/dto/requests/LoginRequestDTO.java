@@ -7,9 +7,19 @@ public class LoginRequestDTO {
     private String email;
     private String password;
 
-    public LoginRequestDTO(String email, String password) throws NoSuchAlgorithmException {
+    public LoginRequestDTO() {
+        // default constructor
+    }
+
+    public LoginRequestDTO(String email, String password) {
         this.email = email;
-        setPassword(password);
+        try {
+            setPassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            // Handle the exception if needed
+            e.printStackTrace();
+            // Set a default or null password to indicate an error, or throw a different custom exception
+        }
     }
 
     public String getEmail() {
@@ -24,33 +34,21 @@ public class LoginRequestDTO {
         return password;
     }
 
-    /**
-     * @param password Senha em texto plano
-     */
     public void setPassword(String password) throws NoSuchAlgorithmException {
-        try {        ;
-
-            // Criar uma instância de MessageDigest para o algoritmo MD5
+        // Password hashing logic using MD5
+        try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // Converter a senha em bytes
             byte[] passwordBytes = password.getBytes();
-
-            // Calcular o hash MD5 da senha
             byte[] hashBytes = md.digest(passwordBytes);
-
-            // Converter o hash em uma representação hexadecimal
             StringBuilder sb = new StringBuilder();
             for (byte hashByte : hashBytes) {
                 sb.append(String.format("%02x", hashByte));
             }
-
-            // Definir o hash MD5 como a senha
             this.password = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            // Tratar exceções, como NoSuchAlgorithmException
+            // Handle the exception if needed
             e.printStackTrace();
-            throw new NoSuchAlgorithmException("Erro ao definir a senha do usuário");
+            throw new NoSuchAlgorithmException("Error while setting the user password");
         }
     }
 }
