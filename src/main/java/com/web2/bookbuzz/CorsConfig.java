@@ -14,7 +14,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("https://bookbuzz.italodea.com.br") // Permita apenas do seu frontend
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "OPTIONS", "POST", "PUT", "DELETE")
                         .allowCredentials(true)
                         .maxAge(3600);
             }
