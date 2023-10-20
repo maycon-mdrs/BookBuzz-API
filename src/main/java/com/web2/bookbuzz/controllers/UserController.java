@@ -3,9 +3,7 @@ package com.web2.bookbuzz.controllers;
 import com.web2.bookbuzz.error.EntityNotFoundException;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.services.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://bookbuzz.italodea.com.br", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE })
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
