@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/bookclubmembers")
 public class BookClubMembersController {
     private final BookClubMembersService bookClubMembersService;
