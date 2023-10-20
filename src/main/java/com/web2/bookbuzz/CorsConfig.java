@@ -15,7 +15,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://api.italodea.com.br") // Permita apenas do seu frontend
+                        .allowedOrigins("https://bookbuzz.italodea.com.br") // Permita apenas do seu frontend
                         .allowedMethods("GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE")
                         .allowCredentials(true)
                         .maxAge(3600);
