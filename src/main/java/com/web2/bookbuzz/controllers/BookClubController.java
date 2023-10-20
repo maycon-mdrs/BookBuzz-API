@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE })
 @RequestMapping("/api/bookclub")
 public class BookClubController {
     private final BookClubService bookClubService;
@@ -19,17 +20,17 @@ public class BookClubController {
     }
 
     @GetMapping("/")
-    public List<BookClubModel> getAllBookClubs(){
+    public List<BookClubModel> getAllBookClubs() {
         return bookClubService.getAllBookClubs();
     }
 
     @GetMapping("/{id}")
-    public BookClubModel getBookClubById(@PathVariable int id){
+    public BookClubModel getBookClubById(@PathVariable int id) {
         return bookClubService.getBookClubById(id);
     }
 
     @PostMapping("/")
-    public void addBookClub(@RequestBody BookClubModel bookClubModel){
+    public void addBookClub(@RequestBody BookClubModel bookClubModel) {
         bookClubService.addBookClub(bookClubModel);
     }
 
@@ -44,4 +45,4 @@ public class BookClubController {
     }
 }
 
-/*teste*/
+/* teste */
