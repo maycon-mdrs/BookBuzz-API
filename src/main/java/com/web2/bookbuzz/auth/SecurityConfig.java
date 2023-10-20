@@ -1,6 +1,5 @@
 package com.web2.bookbuzz.auth;
 
-import com.web2.bookbuzz.auth.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
