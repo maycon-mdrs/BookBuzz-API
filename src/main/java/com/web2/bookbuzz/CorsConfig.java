@@ -14,7 +14,8 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*") // Permita apenas do seu frontend
-                        .allowedMethods("GET", "OPTIONS", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE")
+                        .allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept")
                         .allowCredentials(true)
                         .maxAge(3600);
             }
