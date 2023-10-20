@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/rest/auth")
-@CrossOrigin(origins = "api", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE })
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
