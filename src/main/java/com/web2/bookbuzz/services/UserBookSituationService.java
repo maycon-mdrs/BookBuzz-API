@@ -52,10 +52,20 @@ public class UserBookSituationService {
         }
 
         if (request.getUser_id() != null) {
-            spec = spec.and(UserBookSituationSpecification.withUserId(request.getUser_id()));
+            Optional<UserModel> existingRecord = userRepository.findById(request.getUser_id());
+
+            if (!existingRecord.isPresent()) {
+                throw new EntityNotFoundException("user_id " + request.getUser_id() + " not found");
+            }
+            spec = spec.and(UserBookSituationSpecification.withUserId(existingRecord.get()));
         }
 
-        if(request.getStatus_id() != null){
+        if (request.getStatus_id() != null) {
+            Optional<BookStatusModel> existingRecord = bookStatusRepository.findById(request.getStatus_id());
+
+            if (!existingRecord.isPresent()) {
+                throw new EntityNotFoundException("status_id " + request.getStatus_id() + " not found");
+            }
             spec = spec.and(UserBookSituationSpecification.withStatusId(request.getStatus_id()));
         }
 
