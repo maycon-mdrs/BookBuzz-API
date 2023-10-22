@@ -2,10 +2,7 @@ package com.web2.bookbuzz.controllers;
 
 import com.web2.bookbuzz.dto.requests.BookClubMemberRequestDTO;
 import com.web2.bookbuzz.models.BookClubMembersModel;
-import com.web2.bookbuzz.models.BookClubModel;
-import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.services.BookClubMembersService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

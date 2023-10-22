@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication()
 @EnableJpaRepositories(basePackages = "com.web2.bookbuzz.repositories")
 public class BookbuzzApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookbuzzApplication.class, args);
-	}
+	}// @SpringBootApplication(exclude = { SecurityAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class })
+
 }

@@ -3,6 +3,8 @@ package com.web2.bookbuzz.models;
 import jakarta.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,18 +21,22 @@ public class UserModel {
     @Column(name = "password")
     String password;
     @Column(name = "reading_now")
-    Integer readingNow;
+    String readingNow = "[]";
 
     public UserModel() {
         // Construtor vazio padrão
     }
 
-    public UserModel(String name, String urlPhoto, String email, String password, Integer readingNow) throws NoSuchAlgorithmException {
+    public UserModel(int id, String name, String urlPhoto, String email, String password, String readingNow)
+            throws NoSuchAlgorithmException {
+        this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.email = email;
         setPassword(password);
-        this.readingNow = readingNow;
+        if (readingNow != null) {
+            this.readingNow = readingNow;
+        }
     }
 
     public int getId() {
@@ -49,7 +55,11 @@ public class UserModel {
         return email;
     }
 
-    public Integer getReadingNow() {
+    public String getPassword() {
+        return password;
+    }
+
+    public String getReadingNow() {
         return readingNow;
     }
 
@@ -64,7 +74,6 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     /**
      * @param password Senha em texto plano
@@ -122,8 +131,12 @@ public class UserModel {
         return false;
     }
 
-    public void setReadingNow(Integer reading_now) {
-        this.readingNow = reading_now;
+    public void setReadingNow(String reading_now) {
+        if (reading_now != null) {
+            this.readingNow = reading_now;
+        } else {
+            this.readingNow = "[]";
+        }
     }
 
     @Override

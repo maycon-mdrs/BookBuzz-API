@@ -13,6 +13,9 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     @Query("SELECT u FROM UserModel u WHERE u.email LIKE %:email%")
     List<UserModel> findByEmail(@Param("email") String email);
 
+    @Query("SELECT u FROM UserModel u WHERE u.email = :email")
+    UserModel findOneByEmail(@Param("email") String email);
+
     @Query("SELECT u FROM UserModel u WHERE u.name LIKE %:name%")
     List<UserModel> findByName(@Param("name") String name);
 
