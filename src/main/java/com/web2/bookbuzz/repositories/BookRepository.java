@@ -16,3 +16,4 @@ public interface BookRepository extends JpaRepository<BookModel, Integer> {
 
     List<BookModel> findAll(Specification<BookModel> spec);
 }
+    
