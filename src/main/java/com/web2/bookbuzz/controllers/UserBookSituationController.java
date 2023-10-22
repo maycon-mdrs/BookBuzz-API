@@ -3,12 +3,9 @@ package com.web2.bookbuzz.controllers;
 import com.web2.bookbuzz.dto.requests.create.CreateUserBookSituationRequest;
 import com.web2.bookbuzz.dto.requests.find.FindUserBookSituationRequest;
 import com.web2.bookbuzz.dto.requests.update.UpdateUserBookSituationRequest;
-import com.web2.bookbuzz.dto.responses.UserBookSituationResponseDTO;
 import com.web2.bookbuzz.error.DuplicatedEntityException;
 import com.web2.bookbuzz.error.EntityNotFoundException;
 import com.web2.bookbuzz.services.UserBookSituationService;
-
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,12 +29,20 @@ public class UserBookSituationController {
     }
 
     @GetMapping("/")
-    public List<UserBookSituationResponseDTO> getBookStatus(
+    public ResponseEntity<?> getBookStatus(
             @RequestParam(required = false) Integer user_id,
             @RequestParam(required = false) Integer status_id,
             @RequestParam(required = false) String book_id) {
-        FindUserBookSituationRequest request = new FindUserBookSituationRequest(user_id, book_id, status_id);
-        return userBookSituationService.getAll(request);
+        try {
+            FindUserBookSituationRequest request = new FindUserBookSituationRequest(user_id, book_id, status_id);
+            return ResponseEntity.ok().body(userBookSituationService.getAll(request));
+        } 
+        catch(EntityNotFoundException e) {
+            return e.getError();
+        }
+        catch (Exception e) {
+            throw e;
+        }
     }
 
     @PostMapping("/")
