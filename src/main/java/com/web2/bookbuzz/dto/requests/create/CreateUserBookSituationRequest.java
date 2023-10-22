@@ -8,7 +8,7 @@ public class CreateUserBookSituationRequest {
 
     int status_id;
 
-    public CreateUserBookSituationRequest(int i) {
+    public CreateUserBookSituationRequest() {
     }
 
     public CreateUserBookSituationRequest(int user_id, String book_id, int status_id) {
