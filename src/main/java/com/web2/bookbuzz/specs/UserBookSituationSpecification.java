@@ -2,6 +2,7 @@ package com.web2.bookbuzz.specs;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.web2.bookbuzz.models.BookStatusModel;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;
 
@@ -10,7 +11,7 @@ public class UserBookSituationSpecification {
         return (root, query, builder) -> builder.equal(root.get("bookId"), bookId);
     }
 
-    public static Specification<UserBookSituationModel> withStatusId(Integer statusId) {
+    public static Specification<UserBookSituationModel> withStatusId(BookStatusModel statusId) {
         return (root, query, builder) -> builder.equal(root.get("statusId"), statusId);
     }
 
