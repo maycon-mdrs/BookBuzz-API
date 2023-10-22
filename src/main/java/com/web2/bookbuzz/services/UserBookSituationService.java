@@ -60,7 +60,7 @@ public class UserBookSituationService {
         }
 
         List<UserBookSituationResponseDTO> bookStatusResponseDTOList = new ArrayList<>();
-        List<UserBookSituationModel> userBookSituationList = userBookSituationRepository.findAll();
+        List<UserBookSituationModel> userBookSituationList = userBookSituationRepository.findAll(spec);
 
         for (UserBookSituationModel bookStatusModel : userBookSituationList) {
             UserBookSituationResponseDTO bookStatusResponseDTO = new UserBookSituationResponseDTO(bookStatusModel);
