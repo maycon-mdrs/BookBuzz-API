@@ -1,6 +1,7 @@
 package com.web2.bookbuzz.controllers;
 
 import com.web2.bookbuzz.dto.requests.create.CreateUserBookSituationRequest;
+import com.web2.bookbuzz.dto.requests.find.FindUserBookSituationRequest;
 import com.web2.bookbuzz.dto.requests.update.UpdateUserBookSituationRequest;
 import com.web2.bookbuzz.dto.responses.UserBookSituationResponseDTO;
 import com.web2.bookbuzz.error.DuplicatedEntityException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,8 +32,12 @@ public class UserBookSituationController {
     }
 
     @GetMapping("/")
-    public List<UserBookSituationResponseDTO> getBookStatus() {
-        return userBookSituationService.getAll();
+    public List<UserBookSituationResponseDTO> getBookStatus(
+            @RequestParam(required = false) Integer user_id,
+            @RequestParam(required = false) Integer status_id,
+            @RequestParam(required = false) String book_id) {
+        FindUserBookSituationRequest request = new FindUserBookSituationRequest(user_id, book_id, status_id);
+        return userBookSituationService.getAll(request);
     }
 
     @PostMapping("/")

@@ -4,19 +4,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.web2.bookbuzz.dto.requests.create.CreateUserBookSituationRequest;
+import com.web2.bookbuzz.dto.requests.find.FindUserBookSituationRequest;
 import com.web2.bookbuzz.dto.requests.update.UpdateUserBookSituationRequest;
 import com.web2.bookbuzz.dto.responses.UserBookSituationResponseDTO;
 import com.web2.bookbuzz.error.DuplicatedEntityException;
 import com.web2.bookbuzz.error.EntityNotFoundException;
+import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.models.BookStatusModel;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.repositories.BookStatusRepository;
 import com.web2.bookbuzz.repositories.UserBookSituationRepository;
 import com.web2.bookbuzz.repositories.UserRepository;
+import com.web2.bookbuzz.specs.UserBookSituationSpecification;
 
 import java.util.ArrayList;
 
@@ -39,7 +43,21 @@ public class UserBookSituationService {
         this.bookStatusRepository = bookStatusRepository;
     }
 
-    public List<UserBookSituationResponseDTO> getAll() {
+    public List<UserBookSituationResponseDTO> getAll(FindUserBookSituationRequest request) {
+
+        Specification<UserBookSituationModel> spec = Specification.where(null);
+
+        if (request.getBook_id() != null) {
+            spec = spec.and(UserBookSituationSpecification.withBookId(request.getBook_id()));
+        }
+
+        if (request.getUser_id() != null) {
+            spec = spec.and(UserBookSituationSpecification.withUserId(request.getUser_id()));
+        }
+
+        if(request.getStatus_id() != null){
+            spec = spec.and(UserBookSituationSpecification.withStatusId(request.getStatus_id()));
+        }
 
         List<UserBookSituationResponseDTO> bookStatusResponseDTOList = new ArrayList<>();
         List<UserBookSituationModel> userBookSituationList = userBookSituationRepository.findAll();

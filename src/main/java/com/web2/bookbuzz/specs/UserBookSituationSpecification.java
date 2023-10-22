@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 
 public class UserBookSituationSpecification {
-    public static Specification<UserBookSituationModel> withBookId(Integer bookId) {
+    public static Specification<UserBookSituationModel> withBookId(String bookId) {
         return (root, query, builder) -> builder.equal(root.get("bookId"), bookId);
     }
 
