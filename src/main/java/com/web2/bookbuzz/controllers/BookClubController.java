@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bookclub")
 public class BookClubController {
+    @Autowired
     private final BookClubService bookClubService;
 
-    @Autowired
     public BookClubController(BookClubService bookClubService) {
         this.bookClubService = bookClubService;
     }
