@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserModel> addUser(@RequestBody UserModel userModel) {
+        public ResponseEntity<UserModel> addUser(@RequestBody UserModel userModel) {
         verifyIfEmailExists(userModel.getEmail());
        return ResponseEntity.ok().body(userService.addUser(userModel));
     }
