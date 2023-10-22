@@ -66,7 +66,7 @@ public class UserBookSituationService {
             if (!existingRecord.isPresent()) {
                 throw new EntityNotFoundException("status_id " + request.getStatus_id() + " not found");
             }
-            spec = spec.and(UserBookSituationSpecification.withStatusId(request.getStatus_id()));
+            spec = spec.and(UserBookSituationSpecification.withStatusId(existingRecord.get()));
         }
 
         List<UserBookSituationResponseDTO> bookStatusResponseDTOList = new ArrayList<>();
