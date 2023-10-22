@@ -3,8 +3,6 @@ package com.web2.bookbuzz.models;
 import jakarta.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")

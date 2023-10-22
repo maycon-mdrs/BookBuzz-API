@@ -10,48 +10,48 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository UserRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository UserRepository) {
-        this.UserRepository = UserRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public List<UserModel> getAllUsers(String name, String email) {
         if (name != null && email != null) {
-            return UserRepository.findByNameAndEmail(name, email);
+            return userRepository.findByNameAndEmail(name, email);
         } else if (name != null) {
-            return UserRepository.findByName(name);
+            return userRepository.findByName(name);
         } else if (email != null) {
-            return UserRepository.findByEmail(email);
+            return userRepository.findByEmail(email);
         }
-        return UserRepository.findAll();
+        return userRepository.findAll();
     }
 
     public UserModel getUserById(int id) {
-        Optional<UserModel> optionalUser = UserRepository.findById(id);
+        Optional<UserModel> optionalUser = userRepository.findById(id);
         return optionalUser.orElse(null);
     }
 
     public List<UserModel> getUserByEmail(String email) {
-        List<UserModel> optionalUser = UserRepository.findByEmail(email);
+        List<UserModel> optionalUser = userRepository.findByEmail(email);
         return optionalUser;
     }
 
     public UserModel getOneUserByEmail(String email) {
-        UserModel optionalUser = UserRepository.findOneByEmail(email);
+        UserModel optionalUser = userRepository.findOneByEmail(email);
         return optionalUser;
     }
 
     public UserModel addUser(UserModel userModel) {
-        return UserRepository.save(userModel);
+        return userRepository.save(userModel);
     }
 
     public UserModel updateUser(int id, UserModel userModel) {
-        return UserRepository.save(userModel);
+        return userRepository.save(userModel);
     }
 
     public void deleteUser(int id) {
-        UserRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 }

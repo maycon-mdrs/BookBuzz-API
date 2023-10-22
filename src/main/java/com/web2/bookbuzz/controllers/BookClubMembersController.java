@@ -11,9 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bookclubmembers")
 public class BookClubMembersController {
+    @Autowired
     private final BookClubMembersService bookClubMembersService;
 
-    @Autowired
     public BookClubMembersController(BookClubMembersService bookClubMembersService) {
         this.bookClubMembersService = bookClubMembersService;
     }
