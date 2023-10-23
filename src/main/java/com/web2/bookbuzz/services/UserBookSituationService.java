@@ -26,14 +26,11 @@ import java.util.ArrayList;
 
 @Service
 public class UserBookSituationService {
-    @Autowired
     private final UserBookSituationRepository userBookSituationRepository;
-    @Autowired
     private final UserRepository userRepository;
-
-    @Autowired
     private final BookStatusRepository bookStatusRepository;
 
+    @Autowired
     public UserBookSituationService(
             UserBookSituationRepository userBookSituationRepository,
             UserRepository userService,

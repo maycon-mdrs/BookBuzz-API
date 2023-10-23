@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 @Service
 public class BookStatusService {
-    @Autowired
     private final BookStatusRepository bookStatusRepository;
 
+    @Autowired
     public BookStatusService(BookStatusRepository bookStatusRepository) {
         this.bookStatusRepository = bookStatusRepository;
     }
