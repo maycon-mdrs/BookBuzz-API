@@ -26,16 +26,16 @@ public class BookService {
 
         Specification<BookModel> spec = Specification.where(null);
 
-        if (req.getTitle() != null) {
-            spec = spec.and(BookSpecification.withTitle(req.getTitle()));
+        if (req.title() != null) {
+            spec = spec.and(BookSpecification.withTitle(req.title()));
         }
 
-        if (req.getAuthor() != null) {
-            spec = spec.and(BookSpecification.withAuthor(req.getAuthor()));
+        if (req.author() != null) {
+            spec = spec.and(BookSpecification.withAuthor(req.author()));
         }
 
-        if (req.getGenre() != null) {
-            spec = spec.and(BookSpecification.withGenre(req.getGenre()));
+        if (req.genre() != null) {
+            spec = spec.and(BookSpecification.withGenre(req.genre()));
         }
 
         return bookRepository.findAll(spec);

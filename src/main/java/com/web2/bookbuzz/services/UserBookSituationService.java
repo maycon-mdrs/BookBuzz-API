@@ -44,24 +44,24 @@ public class UserBookSituationService {
 
         Specification<UserBookSituationModel> spec = Specification.where(null);
 
-        if (request.getBook_id() != null) {
-            spec = spec.and(UserBookSituationSpecification.withBookId(request.getBook_id()));
+        if (request.book_id() != null) {
+            spec = spec.and(UserBookSituationSpecification.withBookId(request.book_id()));
         }
 
-        if (request.getUser_id() != null) {
-            Optional<UserModel> existingRecord = userRepository.findById(request.getUser_id());
+        if (request.user_id() != null) {
+            Optional<UserModel> existingRecord = userRepository.findById(request.user_id());
 
             if (!existingRecord.isPresent()) {
-                throw new EntityNotFoundException("user_id " + request.getUser_id() + " not found");
+                throw new EntityNotFoundException("user_id " + request.user_id() + " not found");
             }
             spec = spec.and(UserBookSituationSpecification.withUserId(existingRecord.get()));
         }
 
-        if (request.getStatus_id() != null) {
-            Optional<BookStatusModel> existingRecord = bookStatusRepository.findById(request.getStatus_id());
+        if (request.status_id() != null) {
+            Optional<BookStatusModel> existingRecord = bookStatusRepository.findById(request.status_id());
 
             if (!existingRecord.isPresent()) {
-                throw new EntityNotFoundException("status_id " + request.getStatus_id() + " not found");
+                throw new EntityNotFoundException("status_id " + request.status_id() + " not found");
             }
             spec = spec.and(UserBookSituationSpecification.withStatusId(existingRecord.get()));
         }
@@ -79,28 +79,28 @@ public class UserBookSituationService {
 
     public UserBookSituationResponseDTO create(CreateUserBookSituationRequest userBookSituationRequestDTO) {
         Optional<UserBookSituationModel> existingRecord = userBookSituationRepository.findByUserIdAndBookId(
-                userBookSituationRequestDTO.getUser_id(), userBookSituationRequestDTO.getBook_id());
+                userBookSituationRequestDTO.user_id(), userBookSituationRequestDTO.book_id());
 
         if (existingRecord.isPresent()) {
             throw new DuplicatedEntityException(
-                    "Record already exists for user_id " + userBookSituationRequestDTO.getUser_id()
-                            + " and book_id " + userBookSituationRequestDTO.getBook_id());
+                    "Record already exists for user_id " + userBookSituationRequestDTO.user_id()
+                            + " and book_id " + userBookSituationRequestDTO.book_id());
         }
 
         UserBookSituationModel userBookSituationModel = new UserBookSituationModel();
 
-        Optional<UserModel> user = this.userRepository.findById(userBookSituationRequestDTO.getUser_id());
+        Optional<UserModel> user = this.userRepository.findById(userBookSituationRequestDTO.user_id());
 
-        userBookSituationModel.setBookId(userBookSituationRequestDTO.getBook_id());
+        userBookSituationModel.setBookId(userBookSituationRequestDTO.book_id());
         if (!user.isPresent()) {
             throw new EntityNotFoundException("Usuário não encontrado");
         }
         userBookSituationModel.setUserId(user.get());
 
         Optional<BookStatusModel> bookStatus = this.bookStatusRepository
-                .findById(userBookSituationRequestDTO.getStatus_id());
+                .findById(userBookSituationRequestDTO.status_id());
 
-        userBookSituationModel.setBookId(userBookSituationRequestDTO.getBook_id());
+        userBookSituationModel.setBookId(userBookSituationRequestDTO.book_id());
         if (!bookStatus.isPresent()) {
             throw new EntityNotFoundException("Status não encontrado");
         }
@@ -120,7 +120,7 @@ public class UserBookSituationService {
         }
         Optional<UserBookSituationModel> existingRecord = userBookSituationRepository.findById(id);
 
-        Optional<BookStatusModel> bookStatus = this.bookStatusRepository.findById(request.getStatus_id());
+        Optional<BookStatusModel> bookStatus = this.bookStatusRepository.findById(request.status_id());
         if (!bookStatus.isPresent()) {
             throw new EntityNotFoundException("Status não encontrado");
         }

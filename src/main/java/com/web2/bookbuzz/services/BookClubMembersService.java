@@ -25,12 +25,12 @@ public class BookClubMembersService {
     public List<BookClubMembersModel> getAllBookClubMembers(BookClubMemberRequestDTO req){
         Specification<BookClubMembersModel> spec = Specification.where(null);
 
-        if (req.getClubId() != null) {
-            spec = spec.and(BookClubMemberSpecification.withClubId(req.getClubId()));
+        if (req.club_id() != null) {
+            spec = spec.and(BookClubMemberSpecification.withClubId(req.club_id()));
         }
 
-        if (req.getUserId() != null) {
-            spec = spec.and(BookClubMemberSpecification.withUserId(req.getUserId()));
+        if (req.user_id() != null) {
+            spec = spec.and(BookClubMemberSpecification.withUserId(req.user_id()));
         }
         return bookClubMembersRepository.findAll(spec);
     }

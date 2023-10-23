@@ -26,10 +26,10 @@ public class UserService {
 
     public List<UserResponseDTO> getAllUsers(FindUserRequest request) {
         Specification<UserModel> spec = Specification.where(null);
-        if (request.getName() != null) {
-            spec = spec.and(UserSpecification.withName(request.getName()));
-        } else if (request.getEmail() != null) {
-            spec = spec.and(UserSpecification.withEmail(request.getEmail()));
+        if (request.name() != null) {
+            spec = spec.and(UserSpecification.withName(request.name()));
+        } else if (request.email() != null) {
+            spec = spec.and(UserSpecification.withEmail(request.email()));
         }
         List<UserModel> usersModelList = userRepository.findAll(spec);
         List<UserResponseDTO> usersResponseDTOList = new ArrayList<>();
