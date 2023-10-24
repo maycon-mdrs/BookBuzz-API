@@ -1,10 +1,17 @@
 package com.web2.bookbuzz.services;
 
+import com.web2.bookbuzz.dto.requests.find.FindUserRequest;
+import com.web2.bookbuzz.dto.responses.UserResponseDTO;
+import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.repositories.UserRepository;
+import com.web2.bookbuzz.specs.UserBookSituationSpecification;
+import com.web2.bookbuzz.specs.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,15 +24,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserModel> getAllUsers(String name, String email) {
-        if (name != null && email != null) {
-            return userRepository.findByNameAndEmail(name, email);
-        } else if (name != null) {
-            return userRepository.findByName(name);
-        } else if (email != null) {
-            return userRepository.findByEmail(email);
+    public List<UserResponseDTO> getAllUsers(FindUserRequest request) {
+        Specification<UserModel> spec = Specification.where(null);
+        if (request.name() != null) {
+            spec = spec.and(UserSpecification.withName(request.name()));
+        } else if (request.email() != null) {
+            spec = spec.and(UserSpecification.withEmail(request.email()));
         }
-        return userRepository.findAll();
+        List<UserModel> usersModelList = userRepository.findAll(spec);
+        List<UserResponseDTO> usersResponseDTOList = new ArrayList<>();
+        for (UserModel userModel : usersModelList) {
+            usersResponseDTOList.add(new UserResponseDTO(userModel));
+        }
+
+        return usersResponseDTOList;
     }
 
     public UserModel getUserById(int id) {
