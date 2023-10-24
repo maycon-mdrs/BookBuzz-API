@@ -1,5 +1,7 @@
 package com.web2.bookbuzz.controllers;
 
+import com.web2.bookbuzz.dto.requests.find.FindUserRequest;
+import com.web2.bookbuzz.dto.responses.UserResponseDTO;
 import com.web2.bookbuzz.error.EntityNotFoundException;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.services.UserService;
@@ -22,25 +24,33 @@ public class UserController {
 
     @GetMapping("/")
     @ResponseBody
-    public List<UserModel> getAllUsers(@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
-        return userService.getAllUsers(name, email);
+    public ResponseEntity<?> getAllUsers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email) {
+        try {
+            FindUserRequest request = new FindUserRequest(name, email);
+            return ResponseEntity.ok().body(userService.getAllUsers(request));
+        } catch (Exception e){
+            throw e;
+        }
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserModel> getUserById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         verifyIfUserExists(id);
         UserModel user = userService.getUserById(id);
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserModel> addUser(@RequestBody UserModel userModel) {
+        public ResponseEntity<?> addUser(@RequestBody UserModel userModel) {
         verifyIfEmailExists(userModel.getEmail());
        return ResponseEntity.ok().body(userService.addUser(userModel));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserModel> updateUser(@PathVariable int id, @RequestBody UserModel userModel) {
+    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody UserModel userModel) {
         verifyIfUserExists(id);
         verifyIfEmailExists(userModel.getEmail());
         return ResponseEntity.ok().body(userService.updateUser(id, userModel));
