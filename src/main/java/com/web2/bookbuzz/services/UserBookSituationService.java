@@ -13,7 +13,6 @@ import com.web2.bookbuzz.dto.requests.update.UpdateUserBookSituationRequest;
 import com.web2.bookbuzz.dto.responses.UserBookSituationResponseDTO;
 import com.web2.bookbuzz.error.DuplicatedEntityException;
 import com.web2.bookbuzz.error.EntityNotFoundException;
-import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.models.BookStatusModel;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;

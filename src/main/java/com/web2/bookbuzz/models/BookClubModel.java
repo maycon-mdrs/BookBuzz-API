@@ -14,14 +14,21 @@ public class BookClubModel {
     String name;
     @Column(name = "image_url")
     String imageUrl;
+    @Column(name = "description")
+    String description;
 
-    public BookClubModel(){
+    public BookClubModel() {
         // Construtor vazio padrão
     }
 
-    public BookClubModel(String name, String imageUrl) {
+    public BookClubModel(int id) {
+        this.id = id;
+    }
+
+    public BookClubModel(String name, String imageUrl, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
+        this.description = description;
     }
 
     public int getId() {
@@ -48,12 +55,21 @@ public class BookClubModel {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "BookClubModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
