@@ -1,7 +1,6 @@
 package com.web2.bookbuzz.controllers;
 
 import com.web2.bookbuzz.models.BookClubModel;
-import com.web2.bookbuzz.models.BookModel;
 import com.web2.bookbuzz.services.BookClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,25 +10,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bookclub")
 public class BookClubController {
+    @Autowired
     private final BookClubService bookClubService;
 
-    @Autowired
     public BookClubController(BookClubService bookClubService) {
         this.bookClubService = bookClubService;
     }
 
     @GetMapping("/")
-    public List<BookClubModel> getAllBookClubs(){
+    public List<BookClubModel> getAllBookClubs() {
         return bookClubService.getAllBookClubs();
     }
 
     @GetMapping("/{id}")
-    public BookClubModel getBookClubById(@PathVariable int id){
+    public BookClubModel getBookClubById(@PathVariable int id) {
         return bookClubService.getBookClubById(id);
     }
 
     @PostMapping("/")
-    public void addBookClub(@RequestBody BookClubModel bookClubModel){
+    public void addBookClub(@RequestBody BookClubModel bookClubModel) {
         bookClubService.addBookClub(bookClubModel);
     }
 
@@ -43,3 +42,5 @@ public class BookClubController {
         bookClubService.deleteBookClub(id);
     }
 }
+
+/* teste */

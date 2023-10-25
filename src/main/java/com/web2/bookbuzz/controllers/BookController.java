@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
 
+    @Autowired
     private final BookService bookService;
 
-    @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
@@ -27,6 +27,11 @@ public class BookController {
             @RequestParam(required = false) String genre) {
         BookRequestDTO requestDTO = new BookRequestDTO(title, author, genre);
         return bookService.getAllBooks(requestDTO);
+    }
+
+    @GetMapping("/genres")
+    public List<String> getAllGenres() {
+        return bookService.findAllGenres();
     }
 
     @GetMapping("/{id}")

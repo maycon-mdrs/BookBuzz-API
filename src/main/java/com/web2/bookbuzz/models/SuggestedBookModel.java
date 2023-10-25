@@ -10,15 +10,19 @@ public class SuggestedBookModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
     @OneToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private BookModel bookId;
+
     @OneToOne
     @JoinColumn(name = "votation_id", referencedColumnName = "id")
     VotationModel votationId;
+
     @ManyToOne
     @JoinColumn(name = "suggested_by_user_id", referencedColumnName = "id")
     UserModel suggestedByUserId;
+    
     @ElementCollection
     @Column(name = "votes")
     private List<Integer> votes;

@@ -1,64 +1,69 @@
 package com.web2.bookbuzz.services;
 
+import com.web2.bookbuzz.dto.requests.find.FindUserRequest;
+import com.web2.bookbuzz.dto.responses.UserResponseDTO;
+import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.repositories.UserRepository;
+import com.web2.bookbuzz.specs.UserBookSituationSpecification;
+import com.web2.bookbuzz.specs.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository UserRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository UserRepository) {
-        this.UserRepository = UserRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<UserModel> getAllUsers(String name, String email) {
-        if (name != null && email != null) {
-            return UserRepository.findByNameAndEmail(name, email);
-        } else if (name != null) {
-            return UserRepository.findByName(name);
-        } else if (email != null) {
-            return UserRepository.findByEmail(email);
+    public List<UserResponseDTO> getAllUsers(FindUserRequest request) {
+        Specification<UserModel> spec = Specification.where(null);
+        if (request.name() != null) {
+            spec = spec.and(UserSpecification.withName(request.name()));
+        } else if (request.email() != null) {
+            spec = spec.and(UserSpecification.withEmail(request.email()));
         }
-        return UserRepository.findAll();
+        List<UserModel> usersModelList = userRepository.findAll(spec);
+        List<UserResponseDTO> usersResponseDTOList = new ArrayList<>();
+        for (UserModel userModel : usersModelList) {
+            usersResponseDTOList.add(new UserResponseDTO(userModel));
+        }
+
+        return usersResponseDTOList;
     }
 
     public UserModel getUserById(int id) {
-        Optional<UserModel> optionalUser = UserRepository.findById(id);
-        UserModel userModel = null;
-        if(optionalUser.isPresent()){
-            userModel = optionalUser.get();
-            return userModel;
-        } else {
-            throw new RuntimeException("Usuário não encontrado");
-        }
+        Optional<UserModel> optionalUser = userRepository.findById(id);
+        return optionalUser.orElse(null);
+    }
+
+    public List<UserModel> getUserByEmail(String email) {
+        List<UserModel> optionalUser = userRepository.findByEmail(email);
+        return optionalUser;
+    }
+
+    public UserModel getOneUserByEmail(String email) {
+        UserModel optionalUser = userRepository.findOneByEmail(email);
+        return optionalUser;
     }
 
     public UserModel addUser(UserModel userModel) {
-        return UserRepository.save(userModel);
+        return userRepository.save(userModel);
     }
 
     public UserModel updateUser(int id, UserModel userModel) {
-        // Verifica se o usuario com o ID especificado existe antes de atualizar
-        if (UserRepository.existsById(id)) {
-            UserRepository.save(userModel);
-        } else {
-            throw new RuntimeException("Usuário não encotrado");
-        }
-        return userModel;
+        return userRepository.save(userModel);
     }
 
     public void deleteUser(int id) {
-        // Verifica se o livro com o ID especificado existe antes de excluir
-        if (UserRepository.existsById(id)) {
-            UserRepository.deleteById(id);
-        }else {
-            throw new RuntimeException("Usuário não encotrado");
-        }
+        userRepository.deleteById(id);
     }
 }

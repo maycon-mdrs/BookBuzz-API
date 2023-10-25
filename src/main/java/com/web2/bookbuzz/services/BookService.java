@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
-
-    private final BookRepository BookRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
     public BookService(BookRepository BookRepository) {
@@ -26,19 +26,31 @@ public class BookService {
 
         Specification<BookModel> spec = Specification.where(null);
 
-        if (req.getTitle() != null) {
-            spec = spec.and(BookSpecification.withTitle(req.getTitle()));
+        if (req.title() != null) {
+            spec = spec.and(BookSpecification.withTitle(req.title()));
         }
 
-        if (req.getAuthor() != null) {
-            spec = spec.and(BookSpecification.withAuthor(req.getAuthor()));
+        if (req.author() != null) {
+            spec = spec.and(BookSpecification.withAuthor(req.author()));
         }
 
-        if (req.getGenre() != null) {
-            spec = spec.and(BookSpecification.withGenre(req.getGenre()));
+        if (req.genre() != null) {
+            spec = spec.and(BookSpecification.withGenre(req.genre()));
         }
 
         return bookRepository.findAll(spec);
+    }
+
+    public List<String> findAllGenres() {
+        List<BookModel> books = bookRepository.findAll();
+
+        // Usando stream para mapear os gêneros e coletar os valores distintos
+        List<String> genres = books.stream()
+                .map(BookModel::getGenre)
+                .distinct()
+                .collect(Collectors.toList());
+
+        return genres;
     }
 
     public BookModel getBookById(int id) {
