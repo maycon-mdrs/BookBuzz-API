@@ -8,24 +8,27 @@ public class BookClubMembersModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    @Column(name = "user_id")
-    Integer userId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    UserModel userId;
+
     @Column(name = "club_id")
     Integer clubId;
 
     Boolean is_admin;
 
-    public BookClubMembersModel(){
-        // Construtor vazio padrão
+    public BookClubMembersModel() {
+        // Default empty constructor
     }
 
-    public BookClubMembersModel(Integer userId, Integer clubId, Boolean isAdmin) {
+    public BookClubMembersModel(UserModel userId, Integer clubId, Boolean isAdmin) {
         this.userId = userId;
         this.clubId = clubId;
         this.is_admin = isAdmin;
     }
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 
@@ -33,12 +36,12 @@ public class BookClubMembersModel {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public UserModel getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer user_id) {
-        this.userId = user_id;
+    public void setUserId(UserModel userId) {
+        this.userId = userId;
     }
 
     public Integer getClubId() {
@@ -49,11 +52,14 @@ public class BookClubMembersModel {
         this.clubId = club_id;
     }
 
-    public Boolean getIs_admin() {
-        return is_admin;
-    }
+	public Boolean getIs_admin() {
+		return is_admin;
+	}
 
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
-    }
+	public void setIs_admin(Boolean is_admin) {
+		this.is_admin = is_admin;
+	}
+
+
+
 }

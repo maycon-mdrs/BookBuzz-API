@@ -10,19 +10,25 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
     @Column(name = "name")
     String name;
+
     @Column(name = "url_photo")
     String urlPhoto;
+
     @Column(name = "email")
     String email;
+
     @Column(name = "password")
     String password;
-    @Column(name = "reading_now")
-    String readingNow = "[]";
 
     public UserModel() {
         // Construtor vazio padrão
+    }
+
+    public UserModel(int id){
+        this.id = id;
     }
 
     public UserModel(int id, String name, String urlPhoto, String email, String password, String readingNow)
@@ -32,9 +38,6 @@ public class UserModel {
         this.urlPhoto = urlPhoto;
         this.email = email;
         setPassword(password);
-        if (readingNow != null) {
-            this.readingNow = readingNow;
-        }
     }
 
     public int getId() {
@@ -55,10 +58,6 @@ public class UserModel {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getReadingNow() {
-        return readingNow;
     }
 
     public void setName(String name) {
@@ -129,14 +128,6 @@ public class UserModel {
         return false;
     }
 
-    public void setReadingNow(String reading_now) {
-        if (reading_now != null) {
-            this.readingNow = reading_now;
-        } else {
-            this.readingNow = "[]";
-        }
-    }
-
     @Override
     public String toString() {
         return "UserModel{" +
@@ -144,7 +135,6 @@ public class UserModel {
                 ", name='" + name + '\'' +
                 ", url_photo='" + urlPhoto + '\'' +
                 ", email='" + email + '\'' +
-                ", reading_now='" + readingNow + '\'' +
                 '}';
     }
 }
