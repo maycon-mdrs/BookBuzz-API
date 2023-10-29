@@ -41,7 +41,7 @@ public class UserBookSituationController {
             return e.getError();
         }
         catch (Exception e) {
-            throw e;
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
