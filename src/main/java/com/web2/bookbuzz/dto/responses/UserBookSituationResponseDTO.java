@@ -1,5 +1,6 @@
 package com.web2.bookbuzz.dto.responses;
 
+import com.web2.bookbuzz.models.BookStatusModel;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 
 public class UserBookSituationResponseDTO {
@@ -9,13 +10,13 @@ public class UserBookSituationResponseDTO {
 
     String book_id;
 
-    BookStatusResponseDTO book_status_id;
+    BookStatusModel book_status_id;
 
     public UserBookSituationResponseDTO(UserBookSituationModel userBookSituation) {
         this.id = userBookSituation.getId();
         this.user_id = new UserResponseDTO(userBookSituation.getUserId());
         this.book_id = userBookSituation.getBookId();
-        this.book_status_id = new BookStatusResponseDTO(userBookSituation.getStatusId());
+        this.book_status_id = userBookSituation.getStatusId();
     }
 
     public int getId() {
@@ -42,11 +43,11 @@ public class UserBookSituationResponseDTO {
         this.book_id = book_id;
     }
 
-    public BookStatusResponseDTO getBook_status_id() {
+    public BookStatusModel getBook_status_id() {
         return book_status_id;
     }
 
-    public void setBook_status_id(BookStatusResponseDTO book_status_id) {
+    public void setBook_status_id(BookStatusModel book_status_id) {
         this.book_status_id = book_status_id;
     }
 

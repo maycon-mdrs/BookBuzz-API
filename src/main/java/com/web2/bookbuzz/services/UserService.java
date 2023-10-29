@@ -1,25 +1,29 @@
 package com.web2.bookbuzz.services;
 
+import com.web2.bookbuzz.dto.requests.create.CreateUserRequest;
 import com.web2.bookbuzz.dto.requests.find.FindUserRequest;
+import com.web2.bookbuzz.dto.requests.update.UpdateUserRequest;
 import com.web2.bookbuzz.dto.responses.UserResponseDTO;
+import com.web2.bookbuzz.error.DuplicatedEntityException;
+import com.web2.bookbuzz.error.EntityNotFoundException;
 import com.web2.bookbuzz.models.UserBookSituationModel;
 import com.web2.bookbuzz.models.UserModel;
 import com.web2.bookbuzz.repositories.UserRepository;
-import com.web2.bookbuzz.specs.UserBookSituationSpecification;
 import com.web2.bookbuzz.specs.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
+    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -40,14 +44,13 @@ public class UserService {
         return usersResponseDTOList;
     }
 
-    public UserModel getUserById(int id) {
-        Optional<UserModel> optionalUser = userRepository.findById(id);
-        return optionalUser.orElse(null);
-    }
+    public UserResponseDTO getUserById(int id) {
 
-    public List<UserModel> getUserByEmail(String email) {
-        List<UserModel> optionalUser = userRepository.findByEmail(email);
-        return optionalUser;
+        Optional<UserModel> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return new UserResponseDTO(userRepository.findById(id).get());
+        }
+        throw new EntityNotFoundException("Usuário não encontrado");
     }
 
     public UserModel getOneUserByEmail(String email) {
@@ -55,15 +58,36 @@ public class UserService {
         return optionalUser;
     }
 
-    public UserModel addUser(UserModel userModel) {
-        return userRepository.save(userModel);
+    public UserResponseDTO addUser(CreateUserRequest request) throws NoSuchAlgorithmException {
+
+        List<UserModel> existingRecord = userRepository.findByEmail(request.email());
+
+        if (!existingRecord.isEmpty()) {
+            throw new DuplicatedEntityException("Record already exists for email " + request.email());
+        }
+        UserModel user = userRepository.save(new UserModel(request));
+        return new UserResponseDTO(user);
     }
 
-    public UserModel updateUser(int id, UserModel userModel) {
-        return userRepository.save(userModel);
+    public UserResponseDTO updateUser(int id, UpdateUserRequest request) throws NoSuchAlgorithmException {
+        Optional<UserModel> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            UserModel user = optionalUser.get();
+            user.updateFields(request);
+            UserModel updatedUser = userRepository.save(user);
+            return new UserResponseDTO(updatedUser);
+        }
+        throw new EntityNotFoundException("Usuário não encontrado");
     }
 
     public void deleteUser(int id) {
-        userRepository.deleteById(id);
+
+        Optional<UserModel> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            userRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Usuário não encontrado");
+        }
+
     }
 }

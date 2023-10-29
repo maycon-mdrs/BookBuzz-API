@@ -4,25 +4,67 @@ import jakarta.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.web2.bookbuzz.dto.requests.create.CreateUserRequest;
+import com.web2.bookbuzz.dto.requests.update.UpdateUserRequest;
+
 @Entity
 @Table(name = "users")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
     @Column(name = "name")
     String name;
+
     @Column(name = "url_photo")
     String urlPhoto;
+
     @Column(name = "email")
     String email;
+
     @Column(name = "password")
     String password;
-    @Column(name = "reading_now")
-    String readingNow = "[]";
 
     public UserModel() {
         // Construtor vazio padrão
+    }
+
+    public UserModel(CreateUserRequest request) throws NoSuchAlgorithmException {
+        this.name = request.name();
+        this.urlPhoto = request.url_photo();
+        this.email = request.email();
+        try {
+            setPassword(request.password());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateFields(UpdateUserRequest request) {
+        if (request.name() != null) {
+            this.name = request.name();
+        }
+
+        if (request.url_photo() != null) {
+            this.urlPhoto = request.url_photo();
+        }
+
+        if (request.email() != null) {
+            this.email = request.email();
+        }
+
+        if (request.password() != null) {
+            try {
+                setPassword(request.password());
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public UserModel(int id) {
+        this.id = id;
     }
 
     public UserModel(int id, String name, String urlPhoto, String email, String password, String readingNow)
@@ -32,9 +74,6 @@ public class UserModel {
         this.urlPhoto = urlPhoto;
         this.email = email;
         setPassword(password);
-        if (readingNow != null) {
-            this.readingNow = readingNow;
-        }
     }
 
     public int getId() {
@@ -55,10 +94,6 @@ public class UserModel {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getReadingNow() {
-        return readingNow;
     }
 
     public void setName(String name) {
@@ -129,14 +164,6 @@ public class UserModel {
         return false;
     }
 
-    public void setReadingNow(String reading_now) {
-        if (reading_now != null) {
-            this.readingNow = reading_now;
-        } else {
-            this.readingNow = "[]";
-        }
-    }
-
     @Override
     public String toString() {
         return "UserModel{" +
@@ -144,7 +171,6 @@ public class UserModel {
                 ", name='" + name + '\'' +
                 ", url_photo='" + urlPhoto + '\'' +
                 ", email='" + email + '\'' +
-                ", reading_now='" + readingNow + '\'' +
                 '}';
     }
 }
