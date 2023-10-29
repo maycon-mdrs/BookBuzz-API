@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.web2.bookbuzz.dto.requests.create.CreateUserRequest;
+import com.web2.bookbuzz.dto.requests.update.UpdateUserRequest;
+
 @Entity
 @Table(name = "users")
 public class UserModel {
@@ -27,7 +30,40 @@ public class UserModel {
         // Construtor vazio padrão
     }
 
-    public UserModel(int id){
+    public UserModel(CreateUserRequest request) throws NoSuchAlgorithmException {
+        this.name = request.name();
+        this.urlPhoto = request.url_photo();
+        this.email = request.email();
+        try {
+            setPassword(request.password());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateFields(UpdateUserRequest request) {
+        if (request.name() != null) {
+            this.name = request.name();
+        }
+
+        if (request.url_photo() != null) {
+            this.urlPhoto = request.url_photo();
+        }
+
+        if (request.email() != null) {
+            this.email = request.email();
+        }
+
+        if (request.password() != null) {
+            try {
+                setPassword(request.password());
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public UserModel(int id) {
         this.id = id;
     }
 
