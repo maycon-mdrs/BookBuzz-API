@@ -3,6 +3,7 @@ package com.web2.bookbuzz.services;
 import com.web2.bookbuzz.dto.requests.create.CreateBookClubRequest;
 import com.web2.bookbuzz.dto.responses.BookClubMemberResponse;
 import com.web2.bookbuzz.dto.responses.BookClubResponse;
+import com.web2.bookbuzz.dto.responses.UserResponseDTO;
 import com.web2.bookbuzz.error.EntityNotFoundException;
 import com.web2.bookbuzz.models.BookClubMembersModel;
 import com.web2.bookbuzz.models.BookClubModel;
@@ -14,6 +15,7 @@ import com.web2.bookbuzz.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,12 +62,26 @@ public class BookClubService {
 
     public BookClubResponse addBookClub(CreateBookClubRequest request) {
         Optional<UserModel> existingRecord = userRepository.findById(request.user_id());
-        UserModel user = existingRecord.orElseThrow(() -> new EntityNotFoundException("user_id " + request.user_id() + " not found"));
+        UserModel user = existingRecord
+                .orElseThrow(() -> new EntityNotFoundException("user_id " + request.user_id() + " not found"));
 
-        BookClubModel bookClubModel = bookClubRepository.save(new BookClubModel(request.name(), request.imageUrl(), request.description()));
-        BookClubMembersModel bookClubMembersModel = bookClubMembersRepository.save(new BookClubMembersModel(user, bookClubModel.getId(), true));
+        BookClubModel bookClubModel = bookClubRepository
+                .save(new BookClubModel(request.name(), request.imageUrl(), request.description()));
 
-        return new BookClubResponse(bookClubModel);
+        BookClubMembersModel bookClubMembersModel = bookClubMembersRepository
+                .save(new BookClubMembersModel(user, bookClubModel.getId(), true));
+
+        BookClubResponse response = new BookClubResponse(bookClubModel);
+
+        List<BookClubMembersModel> members = bookClubMembersRepository.findByClubId(response.getId());
+
+        List<BookClubMemberResponse> memberResponses = members.stream()
+                .map(BookClubMemberResponse::new)
+                .collect(Collectors.toList());
+        response.setMembers(memberResponses);
+        response.setMembers_total(1);
+
+        return response;
     }
 
     public BookClubModel updateBookClub(int id, BookClubModel bookClub) {
