@@ -8,17 +8,16 @@ Além disso, o BookBuzz permite que você compartilhe avaliações e recomendaç
 ## :books: Funcionalidades
 * Criar e editar Usuário
 * Criar e editar Clube do livro
-* Votar no prócimo livro de leitura do clube
+* Votar no próximo livro de leitura do clube
 * Pesquisar e adicionar livros ao status 
 * 
-* 
+  
 ## :wrench: Tecnologias utilizadas
-* Flutter, Java, Spring;
+* Flutter, Java, Spring; - adicionar símbolos
 
 ## :rocket: Rodando o projeto
-Para rodar o repositório é necessário clonar o projeto e dar o seguinte comando para iniciar o projeto:
+Para rodar o repositório é necessário clonar o projeto [https://github.com/italodea/BookBuzz]  e dar o seguinte comando para iniciar:
 ```
-<rodando bzz bzz>
+flutter pub get
+flutter run
 ```
-
-## :dart: Status do projeto
