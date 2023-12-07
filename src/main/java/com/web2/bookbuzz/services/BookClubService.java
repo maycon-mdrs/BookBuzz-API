@@ -37,13 +37,19 @@ public class BookClubService {
 
     public List<BookClubResponse> getAllBookClubs() {
         return bookClubRepository.findAll().stream()
-                .map(BookClubResponse::new)
-                .peek(response -> {
-                    List<BookClubMembersModel> members = bookClubMembersRepository.findByClubId(response.getId());
-                    response.setMembers_total(members.size());
+                .map(bookClubModel -> {
+                    BookClubResponse response = new BookClubResponse(bookClubModel);
+                    List<BookClubMembersModel> membersModels = bookClubMembersRepository.findByClubId(response.getId());
+                    List<BookClubMemberResponse> memberResponses = membersModels.stream()
+                            .map(BookClubMemberResponse::new) // Assuming you have a constructor in BookClubMemberResponse that accepts BookClubMembersModel
+                            .collect(Collectors.toList());
+                    response.setMembers(memberResponses);
+                    response.setMembers_total(memberResponses.size());
+                    return response;
                 })
                 .collect(Collectors.toList());
     }
+
 
     public BookClubResponse getBookClubById(int id) {
         Optional<BookClubModel> optionalBookClub = bookClubRepository.findById(id);

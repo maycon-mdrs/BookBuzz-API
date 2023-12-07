@@ -18,8 +18,8 @@ public class BookService {
     private final BookRepository bookRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookService(BookRepository BookRepository) {
+        this.bookRepository = BookRepository;
     }
 
     public List<BookModel> getAllBooks(BookRequestDTO req) {
