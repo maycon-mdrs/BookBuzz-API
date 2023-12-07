@@ -19,7 +19,7 @@ public class BookService {
 
     @Autowired
     public BookService(BookRepository BookRepository) {
-        this.BookRepository = BookRepository;
+        this.bookRepository = BookRepository;
     }
 
     public List<BookModel> getAllBooks(BookRequestDTO req) {
@@ -54,26 +54,26 @@ public class BookService {
     }
 
     public BookModel getBookById(int id) {
-        Optional<BookModel> optionalBook = BookRepository.findById(id);
+        Optional<BookModel> optionalBook = bookRepository.findById(id);
         return optionalBook.orElse(null);
     }
 
     public BookModel addBook(BookModel bookModel) {
-        return BookRepository.save(bookModel);
+        return bookRepository.save(bookModel);
     }
 
     public BookModel updateBook(int id, BookModel bookModel) {
         // Verifica se o livro com o ID especificado existe antes de atualizar
-        if (BookRepository.existsById(id)) {
-            BookRepository.save(bookModel);
+        if (bookRepository.existsById(id)) {
+            bookRepository.save(bookModel);
         }
         return bookModel;
     }
 
     public void deleteBook(int id) {
         // Verifica se o livro com o ID especificado existe antes de excluir
-        if (BookRepository.existsById(id)) {
-            BookRepository.deleteById(id);
+        if (bookRepository.existsById(id)) {
+            bookRepository.deleteById(id);
         }
     }
 }
