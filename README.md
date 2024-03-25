@@ -25,3 +25,11 @@ flutter pub get
 flutter run
 ```
 
+## :iphone: Telas
+
+<p>
+  <img src="https://github.com/maycon-mdrs/BookBuzz-API/assets/80011482/4f9cdda0-208e-441b-b99c-225687b49f59" height="500px" />
+  <img src="https://github.com/maycon-mdrs/BookBuzz-API/assets/80011482/e8ed86ef-da81-4e92-8a2e-e0fdcdd6ce43" height="500px" />
+</p>
+
+
